@@ -77,6 +77,10 @@ function App({ q }: { q: string }) {
     return strany.find((strana: { ESTRANA: string }) => parseInt(strana.ESTRANA) === parseInt(record[2]))[format]
   }
 
+  const getPic = (record: string[], kandidati: string[]) => {
+    return kandidati[Number(record[2])][3]
+
+  }
   //getCleanOtazky - remove the first row
   const getCleanOtazky = (otazky: string[]) => {
     return otazky.slice(1);
@@ -114,7 +118,7 @@ function App({ q }: { q: string }) {
                           {index === 10 ? <Badge variant={respondent[4] === "ANO" ? "destructive" : respondent[4] === "NE" ? "success" : "outline"}>{respondent[4]}</Badge> : <Badge variant={respondent[4] === "ANO" ? "success" : respondent[4] === "NE" ? "destructive" : "outline"}>{respondent[4]}</Badge>}
                         </div>
                         <div className="flex gap-2 items-center my-2">
-                          <CircleUser size={48} color='rgb(161 161 170)' />
+                          {getPic(respondent, kandidati) === "nopic" ? <CircleUser size={48} color='rgb(161 161 170)' /> : <img src={`/greendeal-anketa/${getPic(respondent, kandidati)}.jpg`} alt="pic" className="w-12 h-12 rounded-full" />}
                           <p className="text-zinc-600 text-sm">{respondent[0]}</p>
                         </div>
                         <div>
@@ -155,7 +159,7 @@ function App({ q }: { q: string }) {
                     {view.otazka === 11 ? <Badge variant={respondent[4] === "ANO" ? "destructive" : respondent[4] === "NE" ? "success" : "outline"}>{respondent[4]}</Badge> : <Badge variant={respondent[4] === "ANO" ? "success" : respondent[4] === "NE" ? "destructive" : "outline"}>{respondent[4]}</Badge>}
                   </div>
                   <div className="flex gap-2 items-center my-2">
-                    <CircleUser size={48} color='rgb(161 161 170)' />
+                    {getPic(respondent, kandidati) === "nopic" ? <CircleUser size={48} color='rgb(161 161 170)' /> : <img src={`/greendeal-anketa/${getPic(respondent, kandidati)}.jpg`} alt="pic" className="w-12 h-12 rounded-full" />}
                     <p className="text-zinc-600 text-sm">{respondent[0]}</p>
                   </div>
                   <div>
