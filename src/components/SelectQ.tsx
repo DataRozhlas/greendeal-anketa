@@ -6,36 +6,40 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 
+import { Label } from "@/components/ui/label"
+
 type View = {
     otazka: number,
     strany: number[]
 }
 
 
-const SelectQ = ({ otazky, setView }: { otazky: string[], setView: any }) => {
+const SelectQ = ({ otazky, setView, view }: { otazky: string[], setView: any, view: View }) => {
 
     const handleSelectChange = (value: string) => {
-        console.log(value);
         setView((oldView: View) => ({ ...oldView, otazka: parseInt(value) }));
     }
 
-    const otazkyClean = otazky.slice(1);
+    const otazkyClean = [["0", "", "všechna témata"], ...otazky.slice(1)];
 
     return (
-        <Select onValueChange={handleSelectChange}>
-            <SelectTrigger className="max-w-full md: max-w-[50%]">
-                <SelectValue placeholder="Vyberte si téma" />
-            </SelectTrigger>
-            <SelectContent>
-                {otazkyClean.map((otazka) => (
-                    <SelectItem
-                        key={otazka[0]} value={otazka[0]}
-                    >
-                        {otazka[2]}
-                    </SelectItem>
-                ))}
-            </SelectContent>
-        </Select>
+        <div className="w-full">
+            <Label>Téma</Label>
+            <Select onValueChange={handleSelectChange} defaultValue={view.otazka.toString()}>
+                <SelectTrigger>
+                    <SelectValue placeholder="Vyberte téma" />
+                </SelectTrigger>
+                <SelectContent>
+                    {otazkyClean.map((otazka) => (
+                        <SelectItem
+                            key={otazka[0]} value={otazka[0]}
+                        >
+                            {otazka[2]}
+                        </SelectItem>
+                    ))}
+                </SelectContent>
+            </Select>
+        </div>
     )
 }
 
