@@ -1,5 +1,10 @@
-import { CircleUser } from 'lucide-react';
+import { useState } from 'react';
+
+import { CircleUser, UnfoldVertical } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button"
+
+import { useClampedText } from '@/hooks/useClampedText';
 
 const getPartyName = (record: string[], format: string, strany: any[]) => {
     return strany.find((strana: { ESTRANA: string }) => parseInt(strana.ESTRANA) === parseInt(record[2]))[format]
@@ -12,9 +17,11 @@ const getPic = (record: string[], kandidati: string[]) => {
 
 
 const RespondentBox = ({ respondent, strany, kandidati, reversed }: { respondent: string[], strany: any[], kandidati: string[], reversed: boolean }) => {
+    const [isTextExpanded, setIsTextExpanded] = useState(false);
+    const [textRef, isClamped] = useClampedText();
 
     return (
-        <div key={crypto.randomUUID()} className="w-1/2 sm:w-1/3 lg:w-1/4 p-2">
+        <div key={crypto.randomUUID()} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-2">
             <div className="bg-white shadow-md rounded px-4 pt-2 pb-4 mb-4">
                 <div className="flex justify-between items-start">
                     <h2 className="font-bold">{getPartyName(respondent, "ZKRATKAE30", strany)}</h2>
@@ -29,10 +36,12 @@ const RespondentBox = ({ respondent, strany, kandidati, reversed }: { respondent
                     }                    <p className="text-zinc-600 text-sm">{respondent[0]}</p>
                 </div>
                 <div>
-                    <p className="text-sm">{respondent[5]}</p>
+                    <p ref={textRef} className={`text-sm ${isTextExpanded ? '' : 'line-clamp-6'}`}>{respondent[5]} </p>
+                    {isClamped && !isTextExpanded && <Button size={"sm"} variant="link" onClick={() => setIsTextExpanded(true)}><UnfoldVertical size={18} className={"mr-2"} />Číst dál</Button>}
+                    {isTextExpanded && <Button size={"sm"} variant="link" onClick={() => setIsTextExpanded(false)}><UnfoldVertical size={18} className={"mr-2"} />Sbalit</Button>}
                 </div>
             </div>
-        </div>
+        </div >
     )
 
 };

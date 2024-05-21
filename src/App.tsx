@@ -3,7 +3,6 @@ import './App.css';
 
 import strany from "./assets/data/strany.json";
 
-import { CircleUser } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 
 
