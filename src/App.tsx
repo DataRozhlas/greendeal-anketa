@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 
 import { SelectQ } from "@/components/SelectQ";
 import { SelectS } from "@/components/SelectS";
+import { RespondentBox } from "@/components/RespondentBox";
 
 
 import { usePostMessageWithHeight } from "./hooks/usePostHeightMessage";
@@ -110,23 +111,7 @@ function App({ q }: { q: string }) {
               </div>
               <div className="flex flex-wrap justify-evenly">
                 {currentQuestionAnswers.map((respondent) => {
-                  return (
-                    <div key={crypto.randomUUID()} className="w-1/2 sm:w-1/3 lg:w-1/4 p-2">
-                      <div className="bg-white shadow-md rounded px-4 pt-2 pb-4 mb-4">
-                        <div className="flex justify-between items-start">
-                          <h2 className="font-bold">{getPartyName(respondent, "ZKRATKAE30", strany)}</h2>
-                          {index === 10 ? <Badge variant={respondent[4] === "ANO" ? "destructive" : respondent[4] === "NE" ? "success" : "outline"}>{respondent[4]}</Badge> : <Badge variant={respondent[4] === "ANO" ? "success" : respondent[4] === "NE" ? "destructive" : "outline"}>{respondent[4]}</Badge>}
-                        </div>
-                        <div className="flex gap-2 items-center my-2">
-                          {getPic(respondent, kandidati) === "nopic" ? <CircleUser size={48} color='rgb(161 161 170)' /> : <img src={`/greendeal-anketa/${getPic(respondent, kandidati)}.jpg`} alt="pic" className="w-12 h-12 rounded-full" />}
-                          <p className="text-zinc-600 text-sm">{respondent[0]}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm">{respondent[5]}</p>
-                        </div>
-                      </div>
-                    </div>
-                  )
+                  return <RespondentBox key={crypto.randomUUID()} respondent={respondent} strany={strany} kandidati={kandidati} reversed={index === 10} />
                 })}
               </div>
             </div>
@@ -151,23 +136,7 @@ function App({ q }: { q: string }) {
         </div>
         <div className="flex flex-wrap justify-evenly">
           {selected.map(respondent => {
-            return (
-              <div key={crypto.randomUUID()} className="w-1/2 sm:w-1/3 lg:w-1/4 p-2">
-                <div className="bg-white shadow-md rounded px-4 pt-2 pb-4 mb-4">
-                  <div className="flex justify-between items-start">
-                    <h2 className="font-bold">{getPartyName(respondent, "ZKRATKAE30", strany)}</h2>
-                    {view.otazka === 11 ? <Badge variant={respondent[4] === "ANO" ? "destructive" : respondent[4] === "NE" ? "success" : "outline"}>{respondent[4]}</Badge> : <Badge variant={respondent[4] === "ANO" ? "success" : respondent[4] === "NE" ? "destructive" : "outline"}>{respondent[4]}</Badge>}
-                  </div>
-                  <div className="flex gap-2 items-center my-2">
-                    {getPic(respondent, kandidati) === "nopic" ? <CircleUser size={48} color='rgb(161 161 170)' /> : <img src={`/greendeal-anketa/${getPic(respondent, kandidati)}.jpg`} alt="pic" className="w-12 h-12 rounded-full" />}
-                    <p className="text-zinc-600 text-sm">{respondent[0]}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm">{respondent[5]}</p>
-                  </div>
-                </div>
-              </div>
-            )
+            return <RespondentBox key={crypto.randomUUID()} respondent={respondent} strany={strany} kandidati={kandidati} reversed={view.otazka === 11} />
           })}
         </div>
       </div>}
