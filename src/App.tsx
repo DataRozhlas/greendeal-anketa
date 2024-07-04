@@ -41,15 +41,15 @@ function App({ q }: { q: string }) {
   //load data, the set initial view
   useEffect(() => {
     Promise.all([
-      fetch('https://worker-muddy-disk-d6e4.jan-cibulka-ee5.workers.dev/?sheet=otazky')
+      fetch('https://worker-muddy-disk-d6e4.jan-cibulka-ee5.workers.dev/?spreadsheetId=1XB0QeQzJE0XjNIsUF9FjZn0DAmOYM6AFhk2qcTjNFcM&sheet=otazky')
         .then((response) => response.json())
         .then((data) => setOtazky(data.values)),
 
-      fetch('https://worker-muddy-disk-d6e4.jan-cibulka-ee5.workers.dev/?sheet=odpovedi')
+      fetch('https://worker-muddy-disk-d6e4.jan-cibulka-ee5.workers.dev/?spreadsheetId=1XB0QeQzJE0XjNIsUF9FjZn0DAmOYM6AFhk2qcTjNFcM&sheet=odpovedi')
         .then((response) => response.json())
         .then((data) => setOdpovedi(data.values)),
 
-      fetch('https://worker-muddy-disk-d6e4.jan-cibulka-ee5.workers.dev/?sheet=kandidati')
+      fetch('https://worker-muddy-disk-d6e4.jan-cibulka-ee5.workers.dev/?spreadsheetId=1XB0QeQzJE0XjNIsUF9FjZn0DAmOYM6AFhk2qcTjNFcM&sheet=kandidati')
         .then((response) => response.json())
         .then((data) => setKandidati(data.values))
     ]).then(() => {
@@ -72,15 +72,6 @@ function App({ q }: { q: string }) {
     setSelected(odpovediToShow);
   }, [view])
 
-  //get party name
-  const getPartyName = (record: string[], format: string, strany: any[]) => {
-    return strany.find((strana: { ESTRANA: string }) => parseInt(strana.ESTRANA) === parseInt(record[2]))[format]
-  }
-
-  const getPic = (record: string[], kandidati: string[]) => {
-    return kandidati[Number(record[2])][3]
-
-  }
   //getCleanOtazky - remove the first row
   const getCleanOtazky = (otazky: string[]) => {
     return otazky.slice(1);

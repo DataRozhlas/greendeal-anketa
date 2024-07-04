@@ -36,7 +36,7 @@ const RespondentBox = ({ respondent, strany, kandidati, reversed }: { respondent
                     }                    <p className="text-zinc-600 text-sm">{respondent[0]}</p>
                 </div>
                 <div>
-                    <p ref={textRef} className={`text-sm ${isTextExpanded ? '' : 'line-clamp-6'}`}>{respondent[5]} </p>
+                    <p ref={textRef} className={`text-sm ${isTextExpanded ? '' : 'line-clamp-5'}`}>{respondent[5]} </p>
                     {isClamped && !isTextExpanded && <Button size={"sm"} variant="link" onClick={() => setIsTextExpanded(true)}><UnfoldVertical size={18} className={"mr-2"} />Číst dál</Button>}
                     {isTextExpanded && <Button size={"sm"} variant="link" onClick={() => setIsTextExpanded(false)}><UnfoldVertical size={18} className={"mr-2"} />Sbalit</Button>}
                 </div>
